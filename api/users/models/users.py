@@ -16,6 +16,15 @@ class User(TimeStampModel, AbstractUser):
         unique=True,
         error_messages={"unique": _("A user with that username already exists.")},
     )
+    first_name = None
+    last_name = None
+
+    USERNAME_FIELD = "email"
+    REQUIRED_FIELDS = ["username"]
+
+
+class UserInfo(TimeStampModel):
+
     phone_number = models.CharField(_("user phone number"), max_length=17, blank=True)
     cel_phone_number = models.CharField(
         _("user cel phone number"), max_length=17, blank=True
@@ -26,7 +35,6 @@ class User(TimeStampModel, AbstractUser):
     colony_address = models.CharField(
         _("colony user address"), max_length=255, blank=True
     )
-
     cp_address = models.CharField(
         _("cp address"),
         max_length=8,
@@ -37,5 +45,5 @@ class User(TimeStampModel, AbstractUser):
         _("country user address"), max_length=20, blank=True
     )
 
-    USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ["username", "first_name", "last_name"]
+    class Meta:
+        abstract = True
