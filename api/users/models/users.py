@@ -10,21 +10,28 @@ from api.utils.models import TimeStampModel
 
 
 class User(TimeStampModel, AbstractUser):
+    """User auth model. Be careful about the info from AbstractUser
+    Fields like first_name, last_name will be no used. User information
+    will be handled for UserInfo model.
+    """
 
     email = models.EmailField(
         _("email address"),
         unique=True,
         error_messages={"unique": _("A user with that username already exists.")},
     )
-    first_name = None
-    last_name = None
-
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username"]
 
 
 class UserInfo(TimeStampModel):
-
+    first_name = models.CharField(_("first name"), max_length=150, blank=True)
+    father_last_name = models.CharField(
+        _("father last name"), max_length=150, blank=True
+    )
+    mother_last_name = models.CharField(
+        _("mother last name"), max_length=150, blank=True
+    )
     phone_number = models.CharField(_("user phone number"), max_length=17, blank=True)
     cel_phone_number = models.CharField(
         _("user cel phone number"), max_length=17, blank=True
