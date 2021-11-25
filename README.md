@@ -1,2 +1,2 @@
 # academic
-An App for academic resorces
+An App for academic resources
